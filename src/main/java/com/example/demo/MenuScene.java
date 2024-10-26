@@ -35,7 +35,9 @@ public class MenuScene extends Application {
         playButton.setStyle("-fx-font-family: Arial; -fx-font-size: 20px; -fx-font-weight: bold;");
         playButton.setMinWidth(500);
         playButton.setMinHeight(100);
-//        playButton.setOnAction(actionEvent -> switchToGameScene());  //event handler
+
+        playButton.setOnAction(actionEvent -> openGameScene());
+
         Label gravityLbl = new Label("Set gravity...");
         Label velocityLbl = new Label("Set velocity...");
         gravityLbl.setAlignment(Pos.BASELINE_LEFT);
@@ -63,19 +65,22 @@ public class MenuScene extends Application {
         primaryStage.show();
     }
 
+    private void openGameScene() {
+        try {
+            Stage gameStage = new Stage();
+            GameScene gameScene = new GameScene();
+            gameScene.start(gameStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     public static void main(String[] args) {
         launch();
     }
-
-    //method for playButton to switch to game scene
-//    public void switchToGameScene() {
-//        try {
-//            Scene gameScene = GameScene.getGameScene();
-//            primaryStage.setScene(gameScene);
-//            primaryStage.setTitle("Game Scene");
-//            gameScene.getRoot().requestFocus();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
+
