@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    private GameScene gameScene;
 
     AnimationTimer gameLoop;
 
@@ -64,6 +65,9 @@ public class Controller implements Initializable {
         }
     }
 
+    public void setGameScene(GameScene gameScene) {
+        this.gameScene = gameScene;
+    }
 
     //Called every game frame
     private void update() {
@@ -82,8 +86,10 @@ public class Controller implements Initializable {
             obstacles.addAll(obstaclesHandler.createObstacles());
         }
 
+        //added the death scene to the if statement
         if(birdComponent.isBirdDead(obstacles, plane)){
-            resetGame();
+            gameLoop.stop();
+            gameScene.switchToDeathScene(scoreCounter);
         }
     }
 
@@ -92,7 +98,8 @@ public class Controller implements Initializable {
         obstacles.addAll(obstaclesHandler.createObstacles());
     }
 
-    private void resetGame(){
+    //changed to public
+    public void resetGame(){
         bird.setY(0);
         plane.getChildren().removeAll(obstacles);
         obstacles.clear();

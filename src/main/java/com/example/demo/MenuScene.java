@@ -65,11 +65,11 @@ public class MenuScene extends Application {
         primaryStage.show();
     }
 
+    //.start now stars the primaryStage instead of gameScene
     private void openGameScene() {
         try {
-            Stage gameStage = new Stage();
             GameScene gameScene = new GameScene();
-            gameScene.start(gameStage);
+            gameScene.start(primaryStage);
         } catch (Exception e) {
             e.printStackTrace();
         }
