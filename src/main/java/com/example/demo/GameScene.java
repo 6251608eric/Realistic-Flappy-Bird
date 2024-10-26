@@ -35,6 +35,7 @@ public class GameScene {
 
         scene.setOnKeyPressed(event -> controller.pressed(event));
 
+        //animation for the instruction label, edit as needed
         FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), instructionLabel);
         fadeOut.setDelay(Duration.seconds(1.5));
         fadeOut.setFromValue(1.0);
