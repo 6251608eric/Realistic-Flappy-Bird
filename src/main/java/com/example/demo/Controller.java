@@ -99,7 +99,7 @@ public class Controller implements Initializable {
     }
 
     //changed to public
-    public void resetGame(){
+    public void resetGame() {
         bird.setY(0);
         plane.getChildren().removeAll(obstacles);
         obstacles.clear();

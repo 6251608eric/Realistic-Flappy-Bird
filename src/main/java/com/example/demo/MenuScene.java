@@ -38,8 +38,8 @@ public class MenuScene extends Application {
 
         playButton.setOnAction(actionEvent -> openGameScene());
 
-        Label gravityLbl = new Label("Set gravity...");
-        Label velocityLbl = new Label("Set velocity...");
+        Label gravityLbl = new Label("Set gravity... (UNDER DEVELOPMENT)");
+        Label velocityLbl = new Label("Set velocity... (UNDER DEVELOPMENT)");
         gravityLbl.setAlignment(Pos.BASELINE_LEFT);
         TextField gravityTF = new TextField("");
         TextField velocityTF = new TextField("");
