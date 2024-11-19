@@ -18,11 +18,18 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.function.DoubleToLongFunction;
 
 
-//This class handles all the components in the menu screen.
 public class MenuScene extends Application {
     private Stage primaryStage;
+
+    private TextField gravityTF = new TextField("0.098");
+    private TextField velocityTF = new TextField("");
+
+    public double gravity = 0.098;
+
+    Controller obj = new Controller();
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -38,11 +45,11 @@ public class MenuScene extends Application {
 
         playButton.setOnAction(actionEvent -> openGameScene());
 
-        Label gravityLbl = new Label("Set gravity... (UNDER DEVELOPMENT)");
+        Label gravityLbl = new Label("Set gravity");
         Label velocityLbl = new Label("Set velocity... (UNDER DEVELOPMENT)");
         gravityLbl.setAlignment(Pos.BASELINE_LEFT);
-        TextField gravityTF = new TextField("");
-        TextField velocityTF = new TextField("");
+
+
 
         GridPane gridPane = new GridPane(); // GridPane for the lbl + txtFields
         gridPane.setAlignment(Pos.CENTER);
@@ -73,11 +80,14 @@ public class MenuScene extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
+
 
     public static void main(String[] args) {
         launch();

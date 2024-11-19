@@ -42,7 +42,8 @@ public class ObstaclesHandler {
         ArrayList<Rectangle> outOfScreen = new ArrayList<>();
 
         for (Rectangle rectangle: obstacles) {
-            moveRectangle(rectangle, - 0.75);
+            //speed
+            moveRectangle(rectangle, - 3.5);
 
             if(rectangle.getX() <= -rectangle.getWidth()){
                 outOfScreen.add(rectangle);

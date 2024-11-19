@@ -15,6 +15,8 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
     private GameScene gameScene;
 
+    public double yDelta = 0.098;
+
     AnimationTimer gameLoop;
 
     @FXML
@@ -39,6 +41,8 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+        //Number of pixels jump
         int jumpHeight = 75;
         birdComponent = new Bird(bird, jumpHeight);
         double planeHeight = 600;
@@ -67,22 +71,29 @@ public class Controller implements Initializable {
 
     public void setGameScene(GameScene gameScene) {
         this.gameScene = gameScene;
+        System.out.print("gravity set at: "+yDelta);
+
     }
 
     //Called every game frame
     private void update() {
         gameTime++;
         accelerationTime++;
-        double yDelta = 0.02;
+
+
+
+        //set the value of gravity /
         birdComponent.moveBirdY(yDelta * accelerationTime);
 
         if(pointChecker(obstacles, bird)){
             scoreCounter++;
+            System.out.print("Score +1");
             score.setText(String.valueOf(scoreCounter));
         }
 
         obstaclesHandler.moveObstacles(obstacles);
-        if(gameTime % 500 == 0){
+        //frequency of obstacles
+        if(gameTime % 300 == 0){
             obstacles.addAll(obstaclesHandler.createObstacles());
         }
 
