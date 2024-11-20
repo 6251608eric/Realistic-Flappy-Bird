@@ -3,9 +3,12 @@ package com.example.demo;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class ObstaclesHandler {
 
@@ -13,6 +16,8 @@ public class ObstaclesHandler {
     private double planeHeight;
     private double planeWidth;
     Random random = new Random();
+
+    private double velocity = 3.5;
 
     public ObstaclesHandler(AnchorPane plane, double planeHeight, double planeWidth) {
         this.plane = plane;
@@ -40,10 +45,30 @@ public class ObstaclesHandler {
     public void moveObstacles(ArrayList<Rectangle> obstacles){
 
         ArrayList<Rectangle> outOfScreen = new ArrayList<>();
+        String data="3.5";
+
+        /*velocity m/s of the bird
+            Let 1px = 1m
+            Therefore -> velocity(m/s) = velocity (px/s)
+            but using frames: real velocity / 62 = new velocity
+         */
+        try {
+            File myObj = new File("Data.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                data = myReader.nextLine();
+            }
+            velocity = Double.parseDouble(data);
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
 
         for (Rectangle rectangle: obstacles) {
-            //speed
-            moveRectangle(rectangle, - 3.5);
+
+            moveRectangle(rectangle, - velocity);
 
             if(rectangle.getX() <= -rectangle.getWidth()){
                 outOfScreen.add(rectangle);

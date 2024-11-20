@@ -1,8 +1,6 @@
 package com.example.demo;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,26 +8,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.function.DoubleToLongFunction;
 
 
 public class MenuScene extends Application {
     private Stage primaryStage;
 
-    private TextField gravityTF = new TextField("0.098");
-    private TextField velocityTF = new TextField("");
-
-    public double gravity = 0.098;
-
-    Controller obj = new Controller();
+    private TextField gravityTF = new TextField("9.8");
+    private TextField velocityTF = new TextField("3.5");
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -45,8 +40,8 @@ public class MenuScene extends Application {
 
         playButton.setOnAction(actionEvent -> openGameScene());
 
-        Label gravityLbl = new Label("Set gravity");
-        Label velocityLbl = new Label("Set velocity... (UNDER DEVELOPMENT)");
+        Label gravityLbl = new Label("Set gravity (m/s^2)");
+        Label velocityLbl = new Label("Set velocity (m/s)");
         gravityLbl.setAlignment(Pos.BASELINE_LEFT);
 
 
@@ -74,6 +69,15 @@ public class MenuScene extends Application {
 
     //.start now stars the primaryStage instead of gameScene
     private void openGameScene() {
+        try {
+            FileWriter myWriter = new FileWriter("Data.txt");
+            myWriter.write(gravityTF.getText()+"\n"+velocityTF.getText());
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
         try {
             GameScene gameScene = new GameScene();
             gameScene.start(primaryStage);

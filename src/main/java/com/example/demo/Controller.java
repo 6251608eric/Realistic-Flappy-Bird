@@ -8,14 +8,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class Controller implements Initializable {
+    private FpsFxTest fpsFxTest = new FpsFxTest();
+
     private GameScene gameScene;
 
-    public double yDelta = 0.098;
+    public double gravity = 0.098;
+
+    public ArrayList<Double> dataArray = new ArrayList<>();
 
     AnimationTimer gameLoop;
 
@@ -40,7 +47,28 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //starting the fps meter
+        fpsFxTest.setup();
+        fpsFxTest.start();
 
+        /*Find gravity
+            Since fps = 62fps -> 1seconds = 62 frames
+            real gravity/62 = game gravity
+         */
+        try {
+            File myObj = new File("Data.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+                dataArray.add(Double.parseDouble(data)/62);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        gravity = dataArray.get(0);
 
         //Number of pixels jump
         int jumpHeight = 75;
@@ -71,8 +99,6 @@ public class Controller implements Initializable {
 
     public void setGameScene(GameScene gameScene) {
         this.gameScene = gameScene;
-        System.out.print("gravity set at: "+yDelta);
-
     }
 
     //Called every game frame
@@ -82,8 +108,8 @@ public class Controller implements Initializable {
 
 
 
-        //set the value of gravity /
-        birdComponent.moveBirdY(yDelta * accelerationTime);
+        //Movement /        delta y = gravity(yde
+        birdComponent.moveBirdY(gravity * accelerationTime);
 
         if(pointChecker(obstacles, bird)){
             scoreCounter++;
@@ -99,6 +125,9 @@ public class Controller implements Initializable {
 
         //added the death scene to the if statement
         if(birdComponent.isBirdDead(obstacles, plane)){
+            //when bird dies
+            System.out.print(fpsFxTest.averageFps());
+            fpsFxTest.stop();
             gameLoop.stop();
             gameScene.switchToDeathScene(scoreCounter);
         }
