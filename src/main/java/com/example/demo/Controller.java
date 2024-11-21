@@ -20,7 +20,8 @@ public class Controller implements Initializable {
 
     private GameScene gameScene;
 
-    public double gravity = 0.098;
+    public double gravity = 9.8/62;
+    public double velocity = 3.5;
 
     public ArrayList<Double> dataArray = new ArrayList<>();
 
@@ -61,14 +62,16 @@ public class Controller implements Initializable {
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 System.out.println(data);
-                dataArray.add(Double.parseDouble(data)/62);
+                dataArray.add(Double.parseDouble(data));
             }
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        gravity = dataArray.get(0);
+        gravity = dataArray.get(0)/62;
+        velocity = dataArray.get(1)/0.02;
+
 
         //Number of pixels jump
         int jumpHeight = 75;
@@ -119,7 +122,7 @@ public class Controller implements Initializable {
 
         obstaclesHandler.moveObstacles(obstacles);
         //frequency of obstacles
-        if(gameTime % 300 == 0){
+        if(gameTime % velocity == 0){
             obstacles.addAll(obstaclesHandler.createObstacles());
         }
 
