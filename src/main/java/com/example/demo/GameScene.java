@@ -25,17 +25,18 @@ public class GameScene {
         controller.resetGame();
 
         Label instructionLabel = new Label("Press SPACE to jump!");
-        instructionLabel.setStyle("-fx-font-size: 24; -fx-text-fill: white; -fx-background-color: rgba(0,0,0,0.5); -fx-padding: 10;");
+        instructionLabel.getStyleClass().add("instruction-label");
         root.getChildren().add(instructionLabel);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/stylesGame.css").toExternalForm());     //css file
+
         stage.setTitle("Flappy Bird!");
         stage.setScene(scene);
         stage.show();
 
         scene.setOnKeyPressed(event -> controller.pressed(event));
 
-        //animation for the instruction label, edit as needed
         FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), instructionLabel);
         fadeOut.setDelay(Duration.seconds(1.5));
         fadeOut.setFromValue(1.0);

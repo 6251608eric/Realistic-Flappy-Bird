@@ -52,6 +52,8 @@ public class Controller implements Initializable {
         fpsFxTest.setup();
         fpsFxTest.start();
 
+        bird.getStyleClass().add("bird");   //make the bird yellow from stylesGame.css
+
         /*Find gravity
             Since fps = 62fps -> 1seconds = 62 frames
             real gravity/62 = game gravity

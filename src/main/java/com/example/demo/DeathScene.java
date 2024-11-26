@@ -45,7 +45,7 @@ public class DeathScene {
 
         scene = new Scene(root, 1600, 800);
 
-        // Load the DeathScene-specific CSS file
+        //css file
         scene.getStylesheets().add(getClass().getResource("/stylesDeath.css").toExternalForm());
     }
 

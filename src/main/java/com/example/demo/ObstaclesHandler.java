@@ -37,6 +37,9 @@ public class ObstaclesHandler {
         Rectangle rectangleTop = new Rectangle(xPos,0,width,recTopHeight);
         Rectangle rectangleBottom = new Rectangle(xPos, recTopHeight + space, width, recBottomHeight);
 
+        rectangleTop.getStyleClass().add("pipe");       //css stuff from stylesGame.css
+        rectangleBottom.getStyleClass().add("pipe");        //" " " "
+
         plane.getChildren().addAll(rectangleTop,rectangleBottom);
         return new ArrayList<>(Arrays.asList(rectangleTop,rectangleBottom));
     }

@@ -76,7 +76,7 @@ public class MenuScene extends Application {
         VBox.setMargin(playButton, new Insets(75, 0, 0, 0));
 
         Scene scene = new Scene(vBox, 1600, 800);
-        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());     //css file
 
         primaryStage.setTitle("Flappy Bird!");
         primaryStage.setScene(scene);
