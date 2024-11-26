@@ -16,8 +16,8 @@
     -fx-font-family: Arial;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-background-color: #ff5722;
-    -fx-text-fill: white;
+    -fx-background-color: #FFD700;
+    -fx-text-fill: black;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
     -fx-min-width: 500px;
@@ -26,7 +26,7 @@
 }
 
 .play-button:hover {
-    -fx-background-color: #e64a19;
+    -fx-background-color: #FFA500;
     -fx-cursor: hand;
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;

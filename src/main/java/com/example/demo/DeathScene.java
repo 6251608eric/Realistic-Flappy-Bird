@@ -6,8 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class DeathScene {
@@ -22,19 +20,21 @@ public class DeathScene {
     }
 
     private void createScene() {
-        VBox root = new VBox(20);
+        VBox root = new VBox(30);
         root.setAlignment(Pos.CENTER);
 
         Label deathLabel = new Label("Game Over!");
-        deathLabel.setFont(Font.font("Arial", FontWeight.BOLD, 40));
+        deathLabel.getStyleClass().add("death-title");
 
         Label scoreLabel = new Label("Your score: " + finalScore);
-        scoreLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 30));
+        scoreLabel.getStyleClass().add("score-label");
 
         Button retryButton = new Button("Retry");
+        retryButton.getStyleClass().add("action-button");
         retryButton.setOnAction(e -> retryGame());
 
         Button returnButton = new Button("Return to Menu");
+        returnButton.getStyleClass().add("action-button");
         returnButton.setOnAction(e -> returnToMenu());
 
         HBox buttonBox = new HBox(20);
@@ -44,6 +44,9 @@ public class DeathScene {
         root.getChildren().addAll(deathLabel, scoreLabel, buttonBox);
 
         scene = new Scene(root, 1600, 800);
+
+        // Load the DeathScene-specific CSS file
+        scene.getStylesheets().add(getClass().getResource("/stylesDeath.css").toExternalForm());
     }
 
     private void retryGame() {
