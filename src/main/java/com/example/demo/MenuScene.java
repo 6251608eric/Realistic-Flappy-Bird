@@ -25,7 +25,7 @@ public class MenuScene extends Application {
     private TextField gravityTF = new TextField("9.8");
     private TextField velocityTF = new TextField("3.5");
 
-    private Slider slider = new Slider(1, 10, 3.5);
+    private Slider slider = new Slider(2, 10, 4);
 
     @Override
     public void start(Stage primaryStage) throws IOException {

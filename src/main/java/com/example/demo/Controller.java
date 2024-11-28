@@ -114,13 +114,13 @@ public class Controller implements Initializable {
         //Movement /        delta y = gravity * delta time
         birdComponent.moveBirdY(gravity * accelerationTime);
 
-        /*if(pointChecker(obstacles, bird)){
+        if(pointChecker(obstacles, bird)){
             scoreCounter++;
             System.out.print("Score +1");
             score.setText(String.valueOf(scoreCounter));
-        } */
+        }
 
-        
+
 
         obstaclesHandler.moveObstacles(obstacles);
         //frequency of obstacles
@@ -158,8 +158,9 @@ public class Controller implements Initializable {
 
     private boolean pointChecker(ArrayList<Rectangle> obstacles, Rectangle bird){
         for (Rectangle obstacle: obstacles) {
-            int birdPositionX = (int) (bird.getLayoutX() + bird.getX());
-            if(((int)(obstacle.getLayoutX() + obstacle.getX()) == birdPositionX)){
+            double birdPositionX =  (bird.getLayoutX() + bird.getX());
+            birdPositionX++;
+            if(((obstacle.getLayoutX() + obstacle.getX()) == birdPositionX)){
                 return true;
             }
         }
