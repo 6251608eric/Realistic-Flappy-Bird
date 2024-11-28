@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -23,6 +24,8 @@ public class MenuScene extends Application {
     private Stage primaryStage;
     private TextField gravityTF = new TextField("9.8");
     private TextField velocityTF = new TextField("3.5");
+
+    private Slider slider = new Slider(1, 10, 3.5);
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -60,15 +63,30 @@ public class MenuScene extends Application {
         gravityTF.getStyleClass().add("text-field");
         velocityTF.getStyleClass().add("text-field");
 
+        // Creates a slider
+
+
+        // enable the marks
+        slider.setShowTickMarks(true);
+
+        // enable the Labels
+        slider.setShowTickLabels(true);
+
+        // set Major tick unit
+        slider.setMajorTickUnit(1.0f);
+        slider.getStyleClass().add("text-field");
+
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.add(gravityLbl, 0, 0);
         gridPane.add(gravityTF, 0, 1);
         gridPane.add(velocityLbl, 1, 0);
-        gridPane.add(velocityTF, 1, 1);
+        gridPane.add(slider, 1, 1);
         gridPane.setHgap(20);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20));
+
+
 
         VBox vBox = new VBox(30);
         vBox.setAlignment(Pos.CENTER);
@@ -86,7 +104,7 @@ public class MenuScene extends Application {
     private void openGameScene() {
         try {
             FileWriter myWriter = new FileWriter("Data.txt");
-            myWriter.write(gravityTF.getText() + "\n" + velocityTF.getText());
+            myWriter.write(gravityTF.getText() + "\n" + slider.getValue());
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
@@ -95,6 +113,7 @@ public class MenuScene extends Application {
         }
 
         try {
+
             GameScene gameScene = new GameScene();
             gameScene.start(primaryStage);
         } catch (Exception e) {

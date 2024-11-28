@@ -111,20 +111,20 @@ public class Controller implements Initializable {
         gameTime++;
         accelerationTime++;
 
-
-
-        //Movement /        delta y = gravity(yde
+        //Movement /        delta y = gravity * delta time
         birdComponent.moveBirdY(gravity * accelerationTime);
 
-        if(pointChecker(obstacles, bird)){
+        /*if(pointChecker(obstacles, bird)){
             scoreCounter++;
             System.out.print("Score +1");
             score.setText(String.valueOf(scoreCounter));
-        }
+        } */
+
+        
 
         obstaclesHandler.moveObstacles(obstacles);
         //frequency of obstacles
-        if(gameTime % velocity == 0){
+        if(gameTime % 100 == 0){
             obstacles.addAll(obstaclesHandler.createObstacles());
         }
 
