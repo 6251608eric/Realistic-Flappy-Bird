@@ -158,11 +158,31 @@ public class Controller implements Initializable {
 
     private boolean pointChecker(ArrayList<Rectangle> obstacles, Rectangle bird){
         for (Rectangle obstacle: obstacles) {
-            double birdPositionX =  (bird.getLayoutX() + bird.getX());
-            birdPositionX++;
-            if(((obstacle.getLayoutX() + obstacle.getX()) == birdPositionX)){
-                return true;
+            if (velocity % 2 == 0) {
+                int birdPositionX = (int) (bird.getLayoutX() + bird.getX() + velocity / 100);
+
+                int obstaclePositionX = (int) (obstacle.getLayoutX() + obstacle.getX());
+                System.out.println(birdPositionX);
+                System.out.println(obstaclePositionX);
+                System.out.println("a");
+
+                if (obstaclePositionX == birdPositionX || obstaclePositionX + 1 == birdPositionX) {
+                    return true;
+                }
             }
+            else {
+                int birdPositionX = (int) (bird.getLayoutX() + bird.getX() );
+
+                int obstaclePositionX = (int) (obstacle.getLayoutX() + obstacle.getX());
+                System.out.println(birdPositionX);
+                System.out.println(obstaclePositionX);
+                System.out.println("b");
+
+                if (obstaclePositionX == birdPositionX || obstaclePositionX + 3 == birdPositionX || obstaclePositionX == birdPositionX+3 || obstaclePositionX + 1 == birdPositionX || obstaclePositionX == birdPositionX+1) {
+                    return true;
+                }
+            }
+
         }
         return false;
     }

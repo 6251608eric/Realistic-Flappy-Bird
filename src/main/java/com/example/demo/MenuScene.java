@@ -103,7 +103,7 @@ public class MenuScene extends Application {
 
     private void openGameScene() {
         try {
-            FileWriter myWriter = new FileWriter("Data.txt");
+            FileWriter myWriter = new FileWriter("Data.txt"); 
             myWriter.write(gravityTF.getText() + "\n" + slider.getValue());
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
