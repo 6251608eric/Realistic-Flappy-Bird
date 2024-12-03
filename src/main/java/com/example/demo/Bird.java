@@ -8,18 +8,17 @@ import java.util.ArrayList;
 public class Bird {
 
     private Rectangle bird;
-    private int jumpHeight;
+    private double jumpVelocity;
     CollisionHandler collisionHandler = new CollisionHandler();
 
-    public Bird(Rectangle bird, int jumpHeight) {
+    public Bird(Rectangle bird, double jumpVelocity) {
         this.bird = bird;
-        this.jumpHeight = jumpHeight;
+        this.jumpVelocity = jumpVelocity;
     }
 
-    // change this, instead of subtracting pixels, calculate the actual position of the bird
-    public void fly(){
-        double movement = -jumpHeight;
-        if(bird.getLayoutY() + bird.getY() <= jumpHeight){
+    public void jump(){
+        double movement = -jumpVelocity;
+        if(bird.getLayoutY() + bird.getY() <= jumpVelocity){
             movement = -(bird.getLayoutY() + bird.getY());
         }
 

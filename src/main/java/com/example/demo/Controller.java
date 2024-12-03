@@ -20,6 +20,9 @@ public class Controller implements Initializable {
 
     private GameScene gameScene;
 
+    // If bird jumps
+    public boolean flag = false;
+
     public double gravity = 9.8/62;
     public double velocity = 3.5;
 
@@ -36,11 +39,12 @@ public class Controller implements Initializable {
     @FXML
     private Text score;
 
+    private double jumptime = 0;
     private double accelerationTime = 0;
     private int gameTime = 0;
     private int scoreCounter = 0;
 
-    private Bird birdComponent;
+    private Bird2 birdComponent;
     private ObstaclesHandler obstaclesHandler;
 
     ArrayList<Rectangle> obstacles = new ArrayList<>();
@@ -78,9 +82,13 @@ public class Controller implements Initializable {
 
 
 
-        //Number of pixels jump
-        int jumpHeight = 75;
-        birdComponent = new Bird(bird, jumpHeight);
+        /*Calculation of the jump Velocity
+        Delta X = 7.5m -> 75px (10px = 1m)  Delta t = 0.2s -> 12.4 frames (1s = 62frames)
+        Then:  velocity = Delta X / Delta T ->  velocity = 75px/12.4 = 6px/frame
+                                            ->  velocity = 7.5m / 0.2s = 375m/s
+         */
+        int jumpVelocity = 6;
+        birdComponent = new Bird2(300,200, gravity, jumpVelocity, bird);
         double planeHeight = 600;
         double planeWidth = 400;
         obstaclesHandler = new ObstaclesHandler(plane, planeHeight, planeWidth);
@@ -100,8 +108,8 @@ public class Controller implements Initializable {
     @FXML
     void pressed(KeyEvent event) {
         if(event.getCode() == KeyCode.SPACE){
-            birdComponent.fly();
-            accelerationTime = 0;
+            jumptime = 0;
+            flag = true;
         }
     }
 
@@ -111,34 +119,41 @@ public class Controller implements Initializable {
 
     //Called every game frame
     private void update() {
-        gameTime++;
-        accelerationTime++;
+        if (flag){
+            birdComponent.jump();
+            jumptime++;
 
-        //change the bird position formula       delta y = gravity * delta time
-        birdComponent.moveBirdY(gravity * accelerationTime);
+            if (jumptime>=13){flag=false;accelerationTime=0;}
+        }else {
+            gameTime++;
+            accelerationTime++;
 
-        if(pointChecker(obstacles, bird)){
-            scoreCounter++;
-            System.out.print("Score +1");
-            score.setText(String.valueOf(scoreCounter));
+            //change the bird position formula       delta y = gravity * delta time
+            birdComponent.moveBirdY(gravity * accelerationTime);
         }
 
+            if (pointChecker(obstacles, bird)) {
+                scoreCounter++;
+                System.out.print("Score +1");
+                score.setText(String.valueOf(scoreCounter));
+            }
 
 
-        obstaclesHandler.moveObstacles(obstacles);
-        //frequency of obstacles
-        if(gameTime % 100 == 0){
-            obstacles.addAll(obstaclesHandler.createObstacles());
-        }
+            obstaclesHandler.moveObstacles(obstacles);
+            //frequency of obstacles
+            if (gameTime % 100 == 0) {
+                obstacles.addAll(obstaclesHandler.createObstacles());
+            }
 
-        //added the death scene to the if statement
-        if(birdComponent.isBirdDead(obstacles, plane)){
-            //when bird dies
-            System.out.print(fpsFxTest.averageFps());
-            fpsFxTest.stop();
-            gameLoop.stop();
-            gameScene.switchToDeathScene(scoreCounter);
-        }
+            //added the death scene to the if statement
+            if (birdComponent.isBirdDead(obstacles, plane)) {
+                //when bird dies
+                System.out.print(fpsFxTest.averageFps());
+                fpsFxTest.stop();
+                gameLoop.stop();
+                gameScene.switchToDeathScene(scoreCounter);
+            }
+
     }
 
     //Everything called once, at the game start

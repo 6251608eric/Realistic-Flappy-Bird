@@ -51,7 +51,7 @@ public class ObstaclesHandler {
         String data="3.5";
 
         /*velocity m/s of the bird
-            Let 1px = 1m
+            Let 10px = 1m
             Therefore -> velocity(m/s) = velocity (px/s)
             but using frames: real velocity / 62 = new velocity
          */
