@@ -74,6 +74,9 @@ public class Controller implements Initializable {
         gravity = dataArray.get(0)/62;
         velocity = dataArray.get(1)/0.02;
 
+        // recording the position of the bird
+
+
 
         //Number of pixels jump
         int jumpHeight = 75;
@@ -111,7 +114,7 @@ public class Controller implements Initializable {
         gameTime++;
         accelerationTime++;
 
-        //Movement /        delta y = gravity * delta time
+        //change the bird position formula       delta y = gravity * delta time
         birdComponent.moveBirdY(gravity * accelerationTime);
 
         if(pointChecker(obstacles, bird)){
@@ -153,8 +156,6 @@ public class Controller implements Initializable {
         scoreCounter = 0;
         score.setText(String.valueOf(scoreCounter));
     }
-
-
 
     private boolean pointChecker(ArrayList<Rectangle> obstacles, Rectangle bird){
         for (Rectangle obstacle: obstacles) {

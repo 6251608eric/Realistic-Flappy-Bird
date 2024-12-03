@@ -13,6 +13,9 @@ import java.io.IOException;
 public class GameScene {
     private Stage stage;
     private Controller controller;
+    private Bird bird;
+    private double gravity = 9.8;
+    private double jumpVelocity = 200;
 
     public void start(Stage stage) throws IOException {
         this.stage = stage;
@@ -35,6 +38,7 @@ public class GameScene {
         stage.setScene(scene);
         stage.show();
 
+        //space bar and jump
         scene.setOnKeyPressed(event -> controller.pressed(event));
 
         FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), instructionLabel);

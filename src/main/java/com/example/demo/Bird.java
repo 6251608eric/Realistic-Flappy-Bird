@@ -16,6 +16,7 @@ public class Bird {
         this.jumpHeight = jumpHeight;
     }
 
+    // change this, instead of subtracting pixels, calculate the actual position of the bird
     public void fly(){
         double movement = -jumpHeight;
         if(bird.getLayoutY() + bird.getY() <= jumpHeight){
