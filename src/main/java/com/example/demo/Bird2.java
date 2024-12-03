@@ -40,8 +40,8 @@ public class Bird2 {
     public void update(double deltaTime) {
 
         //Vertical Displacement Formula: Displacement =  (initialPos * time) + 1/2(g * time^2)
-        double newXPos = xPos + xVelocity * deltaTime; //xVelocity is 0 because the bird is not moving in x-axis
-        double newYPos = yPos += yVelocity * deltaTime + 0.5 * gravity * deltaTime * deltaTime; //yVelocity will be negative if the bird jumps
+        double newXPos = xPos + xVelocity * deltaTime;
+        double newYPos = yPos + yVelocity * deltaTime + 0.5 * gravity * deltaTime * deltaTime; //yVelocity will be negative if the bird jumps
 
         xPos = newXPos;
         yPos = newYPos;
