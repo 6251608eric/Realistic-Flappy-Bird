@@ -81,7 +81,7 @@ public class MenuScene extends Application {
         playButton.setOnAction(actionEvent -> openGameScene());
 
         Label gravityLbl = new Label("Set gravity (m/s^2)");
-        Label velocityLbl = new Label("Set velocity (m/s)");
+        Label velocityLbl = new Label("Set Obstacle Speed (m/s)");
         gravityLbl.getStyleClass().add("label");
         velocityLbl.getStyleClass().add("label");
 
