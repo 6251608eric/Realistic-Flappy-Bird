@@ -17,19 +17,44 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MenuScene extends Application {
     private Stage primaryStage;
     private TextField gravityTF = new TextField("9.8");
     private TextField velocityTF = new TextField("3.5");
+    private ArrayList<Double> dataArray = new ArrayList<>();
+
 
     private Slider slider = new Slider(2, 10, 4);
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
+
+        try {
+            File myObj = new File("Data.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+                dataArray.add(Double.parseDouble(data));
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        double gravity = dataArray.get(0);
+        double velocity = dataArray.get(1);
+
+        gravityTF.setText(String.valueOf(gravity));
+        slider.setValue(velocity);
 
         Text flappyTitle = new Text("Realistic Flappy Bird");
         flappyTitle.getStyleClass().add("title");
