@@ -44,7 +44,7 @@ public class Controller implements Initializable {
     private int gameTime = 0;
     private int scoreCounter = 0;
 
-    private Bird2 birdComponent;
+    private BirdPhysics birdComponent;
     private ObstaclesHandler obstaclesHandler;
 
     ArrayList<Rectangle> obstacles = new ArrayList<>();
@@ -88,7 +88,7 @@ public class Controller implements Initializable {
                                             ->  velocity = 7.5m / 0.2s = 375m/s
          */
         int jumpVelocity = 6;
-        birdComponent = new Bird2(300,200, gravity, jumpVelocity, bird);
+        birdComponent = new BirdPhysics(300,200, gravity, jumpVelocity, bird);
         double planeHeight = 600;
         double planeWidth = 400;
         obstaclesHandler = new ObstaclesHandler(plane, planeHeight, planeWidth);

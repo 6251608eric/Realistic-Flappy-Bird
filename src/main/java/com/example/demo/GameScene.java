@@ -13,7 +13,7 @@ import java.io.IOException;
 public class GameScene {
     private Stage stage;
     private Controller controller;
-    private Bird bird;
+
     private double gravity = 9.8;
     private double jumpVelocity = 200;
 

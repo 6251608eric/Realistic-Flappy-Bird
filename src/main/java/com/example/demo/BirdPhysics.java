@@ -2,11 +2,10 @@ package com.example.demo;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
-import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 
-public class Bird2 {
+public class BirdPhysics {
     private double xPos, yPos;        // Current position
     private double xVelocity, yVelocity;      // Velocity
     private double gravity;
@@ -16,7 +15,7 @@ public class Bird2 {
     CollisionHandler collisionHandler = new CollisionHandler();
 
 
-    public Bird2(double xPos, double yPos, double gravity, double jumpVelocity, Rectangle bird) {
+    public BirdPhysics(double xPos, double yPos, double gravity, double jumpVelocity, Rectangle bird) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xVelocity = xVelocity;
