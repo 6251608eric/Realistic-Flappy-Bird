@@ -7,3 +7,4 @@
 5. November 26, 0.2.1 redesigned UI
 6. November 28, 0.2.2 Fixing bugs
 7. December 3, 0.2.3 Changing physics
+8. December 3, 1.0.0 Full Version
