@@ -25,6 +25,7 @@ public class Controller implements Initializable {
 
     public double gravity = 9.8/62;
     public double velocity = 3.5;
+    public  double airResistenceCoef = 0;
 
     public ArrayList<Double> dataArray = new ArrayList<>();
 
@@ -76,8 +77,8 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
         gravity = dataArray.get(0)/62;
-        velocity = dataArray.get(1)/0.02;
-
+        airResistenceCoef = dataArray.get(1);
+        velocity = dataArray.get(2)/0.02;
         // recording the position of the bird
 
 
@@ -88,7 +89,7 @@ public class Controller implements Initializable {
                                             ->  velocity = 7.5m / 0.2s = 375m/s
          */
         int jumpVelocity = 6;
-        birdComponent = new BirdPhysics(300,200, gravity, jumpVelocity, bird);
+        birdComponent = new BirdPhysics(300,200, gravity, airResistenceCoef, jumpVelocity, bird);
         double planeHeight = 600;
         double planeWidth = 400;
         obstaclesHandler = new ObstaclesHandler(plane, planeHeight, planeWidth);

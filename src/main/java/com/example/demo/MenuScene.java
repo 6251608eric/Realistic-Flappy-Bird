@@ -28,6 +28,7 @@ public class MenuScene extends Application {
     private Stage primaryStage;
     private TextField gravityTF = new TextField("9.8");
     private TextField velocityTF = new TextField("3.5");
+    private TextField airResistanceCoefTF = new TextField("0.0");
     private ArrayList<Double> dataArray = new ArrayList<>();
 
 
@@ -51,10 +52,13 @@ public class MenuScene extends Application {
             e.printStackTrace();
         }
         double gravity = dataArray.get(0);
-        double velocity = dataArray.get(1);
+        double airResistanceCoef = dataArray.get(1);
+        double velocity = dataArray.get(2);
+
 
         gravityTF.setText(String.valueOf(gravity));
         slider.setValue(velocity);
+        airResistanceCoefTF.setText(String.valueOf(airResistanceCoef));
 
         Text flappyTitle = new Text("Realistic Flappy Bird");
         flappyTitle.getStyleClass().add("title");
@@ -81,12 +85,17 @@ public class MenuScene extends Application {
         playButton.setOnAction(actionEvent -> openGameScene());
 
         Label gravityLbl = new Label("Set gravity (m/s^2)");
+        Label airResistanceCoefLbl = new Label("Set Air Resistance (N)");
         Label velocityLbl = new Label("Set Obstacle Speed (m/s)");
         gravityLbl.getStyleClass().add("label");
+        airResistanceCoefLbl.getStyleClass().add("label");
         velocityLbl.getStyleClass().add("label");
 
+
         gravityTF.getStyleClass().add("text-field");
+        airResistanceCoefTF.getStyleClass().add("text-field");
         velocityTF.getStyleClass().add("text-field");
+
 
         // Creates a slider
 
@@ -105,8 +114,10 @@ public class MenuScene extends Application {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.add(gravityLbl, 0, 0);
         gridPane.add(gravityTF, 0, 1);
-        gridPane.add(velocityLbl, 1, 0);
-        gridPane.add(slider, 1, 1);
+        gridPane.add(airResistanceCoefLbl, 1,0);
+        gridPane.add(airResistanceCoefTF, 1,1);
+        gridPane.add(velocityLbl, 2, 0);
+        gridPane.add(slider, 2, 1);
         gridPane.setHgap(20);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20));
@@ -129,7 +140,7 @@ public class MenuScene extends Application {
     private void openGameScene() {
         try {
             FileWriter myWriter = new FileWriter("Data.txt"); 
-            myWriter.write(gravityTF.getText() + "\n" + slider.getValue());
+            myWriter.write(gravityTF.getText() + "\n" + airResistanceCoefTF.getText() + "\n" + slider.getValue());
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
