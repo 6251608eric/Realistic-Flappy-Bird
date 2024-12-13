@@ -134,19 +134,13 @@ public class MenuScene extends Application {
     private void openGameScene() {
         try {
             FileWriter myWriter = new FileWriter("Data.txt");
-            if(Double.parseDouble(gravityTF.getText()) > Double.parseDouble(airResistanceTF.getText())) {
-                myWriter.write(gravityTF.getText() + "\n" + airResistanceTF.getText() + "\n" + slider.getValue());
-                myWriter.close();
-                System.out.println("Successfully wrote to the file.");
-            } else{
-                status.setText("AIR RESISTANCE CANNOT EXCEED GRAVITY!");
-                throw new RuntimeException("Air resistance too big");
-            }
+            myWriter.write(gravityTF.getText() + "\n" + airResistanceTF.getText() + "\n" + slider.getValue());
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
         try {
             GameScene gameScene = new GameScene();
             gameScene.start(primaryStage);

@@ -115,6 +115,15 @@ public class Controller implements Initializable {
         this.gameScene = gameScene;
     }
 
+    //Since air resistance is a force acting in opposite direction of the gravity
+    //If air resistance force is greater than the gravity then the bird stays at the same level not affected by gravity
+    public double verticalAcceleration(){
+        if(gravity - airResistence < 0){
+            return 0;
+        }else{
+            return gravity - airResistence;
+        }
+    }
     //Called every game frame
     private void update() {
         if (flag){
@@ -126,7 +135,7 @@ public class Controller implements Initializable {
             accelerationTime++;
 
             //change the bird position formula       delta y = gravity * delta time
-            birdComponent.moveBirdY((gravity - airResistence) * accelerationTime);
+            birdComponent.moveBirdY(verticalAcceleration() * accelerationTime);
         }
 
             if (pointChecker(obstacles, bird)) {
