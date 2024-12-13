@@ -22,10 +22,9 @@ public class Controller implements Initializable {
 
     // If bird jumps
     public boolean flag = false;
-
     public double gravity = 9.8/62;
     public double velocity = 3.5;
-    public  double airResistenceCoef = 0;
+    public  double airResistence = 0;
 
     public ArrayList<Double> dataArray = new ArrayList<>();
 
@@ -42,6 +41,7 @@ public class Controller implements Initializable {
 
     private double jumptime = 0;
     private double accelerationTime = 0;
+    public double verticalVelocity = gravity * accelerationTime;
     private int gameTime = 0;
     private int scoreCounter = 0;
 
@@ -77,19 +77,16 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
         gravity = dataArray.get(0)/62;
-        airResistenceCoef = dataArray.get(1);
+        airResistence = dataArray.get(1)/62;
         velocity = dataArray.get(2)/0.02;
-        // recording the position of the bird
-
-
-
+        // recording the position of the bird=
         /*Calculation of the jump Velocity
         Delta X = 7.5m -> 75px (10px = 1m)  Delta t = 0.2s -> 12.4 frames (1s = 62frames)
         Then:  velocity = Delta X / Delta T ->  velocity = 75px/12.4 = 6px/frame
                                             ->  velocity = 7.5m / 0.2s = 375m/s
          */
         int jumpVelocity = 6;
-        birdComponent = new BirdPhysics(300,200, gravity, airResistenceCoef, jumpVelocity, bird);
+        birdComponent = new BirdPhysics(300,200, verticalVelocity, gravity, airResistence, jumpVelocity, bird);
         double planeHeight = 600;
         double planeWidth = 400;
         obstaclesHandler = new ObstaclesHandler(plane, planeHeight, planeWidth);
@@ -123,14 +120,13 @@ public class Controller implements Initializable {
         if (flag){
             birdComponent.jump();
             jumptime++;
-
             if (jumptime>=13){flag=false;accelerationTime=0;}
         }else {
             gameTime++;
             accelerationTime++;
 
             //change the bird position formula       delta y = gravity * delta time
-            birdComponent.moveBirdY(gravity * accelerationTime);
+            birdComponent.moveBirdY((gravity - airResistence) * accelerationTime);
         }
 
             if (pointChecker(obstacles, bird)) {

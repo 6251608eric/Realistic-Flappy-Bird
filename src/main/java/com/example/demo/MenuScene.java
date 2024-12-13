@@ -7,12 +7,11 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -28,10 +27,9 @@ public class MenuScene extends Application {
     private Stage primaryStage;
     private TextField gravityTF = new TextField("9.8");
     private TextField velocityTF = new TextField("3.5");
-    private TextField airResistanceCoefTF = new TextField("0.0");
+    private TextField airResistanceTF = new TextField("0.0");
+    private Label status = new Label();
     private ArrayList<Double> dataArray = new ArrayList<>();
-
-
     private Slider slider = new Slider(2, 10, 4);
 
     @Override
@@ -51,14 +49,15 @@ public class MenuScene extends Application {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
         double gravity = dataArray.get(0);
-        double airResistanceCoef = dataArray.get(1);
+        double airResistance = dataArray.get(1);
         double velocity = dataArray.get(2);
 
 
         gravityTF.setText(String.valueOf(gravity));
+        airResistanceTF.setText(String.valueOf(airResistance));
         slider.setValue(velocity);
-        airResistanceCoefTF.setText(String.valueOf(airResistanceCoef));
 
         Text flappyTitle = new Text("Realistic Flappy Bird");
         flappyTitle.getStyleClass().add("title");
@@ -90,15 +89,11 @@ public class MenuScene extends Application {
         gravityLbl.getStyleClass().add("label");
         airResistanceCoefLbl.getStyleClass().add("label");
         velocityLbl.getStyleClass().add("label");
-
+        status.getStyleClass().add("label");
 
         gravityTF.getStyleClass().add("text-field");
-        airResistanceCoefTF.getStyleClass().add("text-field");
+        airResistanceTF.getStyleClass().add("text-field");
         velocityTF.getStyleClass().add("text-field");
-
-
-        // Creates a slider
-
 
         // enable the marks
         slider.setShowTickMarks(true);
@@ -115,14 +110,13 @@ public class MenuScene extends Application {
         gridPane.add(gravityLbl, 0, 0);
         gridPane.add(gravityTF, 0, 1);
         gridPane.add(airResistanceCoefLbl, 1,0);
-        gridPane.add(airResistanceCoefTF, 1,1);
+        gridPane.add(airResistanceTF, 1,1);
         gridPane.add(velocityLbl, 2, 0);
         gridPane.add(slider, 2, 1);
+        gridPane.add(status,0,3);
         gridPane.setHgap(20);
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(20));
-
-
 
         VBox vBox = new VBox(30);
         vBox.setAlignment(Pos.CENTER);
@@ -139,17 +133,21 @@ public class MenuScene extends Application {
 
     private void openGameScene() {
         try {
-            FileWriter myWriter = new FileWriter("Data.txt"); 
-            myWriter.write(gravityTF.getText() + "\n" + airResistanceCoefTF.getText() + "\n" + slider.getValue());
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
+            FileWriter myWriter = new FileWriter("Data.txt");
+            if(Double.parseDouble(gravityTF.getText()) > Double.parseDouble(airResistanceTF.getText())) {
+                myWriter.write(gravityTF.getText() + "\n" + airResistanceTF.getText() + "\n" + slider.getValue());
+                myWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            } else{
+                status.setText("AIR RESISTANCE CANNOT EXCEED GRAVITY!");
+                throw new RuntimeException("Air resistance too big");
+            }
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
 
         try {
-
             GameScene gameScene = new GameScene();
             gameScene.start(primaryStage);
         } catch (Exception e) {

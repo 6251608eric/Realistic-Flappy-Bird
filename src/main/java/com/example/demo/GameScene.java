@@ -14,10 +14,8 @@ public class GameScene {
     private Stage stage;
     private Controller controller;
 
-    private double gravity = 9.8;
-    private double jumpVelocity = 200;
-
     public void start(Stage stage) throws IOException {
+        //initialize the base scene
         this.stage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(GameScene.class.getResource("view.fxml"));
         StackPane root = new StackPane();
